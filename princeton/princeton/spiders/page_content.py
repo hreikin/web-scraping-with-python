@@ -9,8 +9,8 @@ class PageContentSpider(SitemapSpider):
             return response.css(query).getall()
 
         # image_text = extract_with_css('img::attr(alt)')
-        image_links = extract_with_css('img::attr(src)')
-        pages_linked = extract_with_css('a::attr(href)')
+        # image_links = extract_with_css('img::attr(src)')
+        # pages_linked = extract_with_css('a::attr(href)')
         page_title = response.css('title::text').get()
         # extracted_list = extract_with_css('.siteorigin-widget-tinymce ::text')
         extracted_list = extract_with_css('.entry-content ::text')
@@ -40,7 +40,7 @@ class PageContentSpider(SitemapSpider):
         yield {
             'page-title': page_title,
             'page-content': formatted_list,
-            'pages-linked': pages_linked,
+            # 'pages-linked': pages_linked,
             # 'image-alt': image_text,
-            'image-links': image_links,
+            # 'image-links': image_links,
         }
