@@ -66,6 +66,10 @@ ROBOTSTXT_OBEY = True
 #    'princeton.pipelines.PrincetonPipeline': 300,
 #}
 
+IMAGES_STORE = 'images'  # folder name or path where to save images
+DOWNLOAD_DELAY = 2  # delay in downloading images
+ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1}
+
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True

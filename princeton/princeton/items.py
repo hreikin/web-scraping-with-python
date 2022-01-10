@@ -10,3 +10,11 @@ class PrincetonItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     pass
+
+from scrapy import Field
+from scrapy import Item
+
+
+class ImageItem(Item):
+    image_urls = Field()
+    images = Field()
