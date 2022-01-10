@@ -4,10 +4,7 @@ from bs4 import BeautifulSoup
 url = "https://princetonscientific.com/"
 page = requests.get(url)
 soup = BeautifulSoup(page.content, 'html.parser')
-
-head = soup.head
 title = soup.title.text
-body = soup.body.text
 all_content = []
 
 
