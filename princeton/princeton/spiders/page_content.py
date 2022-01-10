@@ -1,4 +1,5 @@
 from scrapy.spiders import SitemapSpider
+from princeton.items import ImageItem
 
 class PageContentSpider(SitemapSpider):
     name = "page_content"
@@ -37,6 +38,12 @@ class PageContentSpider(SitemapSpider):
         # }
         # yield page_content
 
+        item = ImageItem()
+        if response.status == 200:
+            rel_img_urls = response.css('img::attr(src)').extract()
+            item['image_urls'] = self.url_join(rel_img_urls, response)
+        yield item
+
         yield {
             'page-title': page_title,
             'page-content': formatted_list,
@@ -44,3 +51,10 @@ class PageContentSpider(SitemapSpider):
             # 'image-alt': image_text,
             # 'image-links': image_links,
         }
+
+    def url_join(self, rel_img_urls, response):
+        joined_urls = []
+        for rel_img_url in rel_img_urls:
+            joined_urls.append(response.urljoin(rel_img_url))
+
+        return joined_urls
