@@ -1,5 +1,6 @@
 import scrapy
 from scrapy.spiders import SitemapSpider
+from scrapy.crawler import CrawlerProcess
 
 
 class GetUrlsSpider(SitemapSpider):
@@ -20,3 +21,13 @@ class GetUrlsSpider(SitemapSpider):
                 stream.write(v + "\n")
 
         yield urls
+
+def run_spider():
+    process = CrawlerProcess(settings={
+        "FEEDS": {
+            "output/titles-url-list.jl": {"format": "jl"},
+        },
+    })
+
+    process.crawl(GetUrlsSpider)
+    process.start() # the script will block here until the crawling is finished
