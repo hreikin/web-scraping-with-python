@@ -1,12 +1,11 @@
-import scrapy
 from scrapy.spiders import SitemapSpider
 from scrapy.crawler import CrawlerProcess
 
 
 class GetUrlsSpider(SitemapSpider):
     name = 'get_urls'
-    allowed_domains = ['princetonscientific.com']
-    sitemap_urls = ['https://princetonscientific.com/sitemap_index.xml']
+    allowed_domains = []
+    sitemap_urls = []
 
     def parse(self, response):
         page_title = response.css('title::text').get()
@@ -28,8 +27,9 @@ def run_spider():
             "output/titles-url-list.jl": {"format": "jl"},
         },
     })
-
-    process.crawl(GetUrlsSpider)
+    domain = input("Domain: ")
+    sitemap = input("Sitemap Index Location: ")
+    process.crawl(GetUrlsSpider, sitemap_urls = [sitemap], allowed_domains = [domain])
     process.start() # the script will block here until the crawling is finished
     print("\n\n\n")
     input("Crawling finished. Press any key to return to the menu: ")
