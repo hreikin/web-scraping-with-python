@@ -31,3 +31,5 @@ def run_spider():
 
     process.crawl(GetUrlsSpider)
     process.start() # the script will block here until the crawling is finished
+    print("\n\n\n")
+    input("Crawling finished. Press any key to return to the menu: ")
