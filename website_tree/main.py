@@ -1,6 +1,7 @@
 import simple_menu
 from create_tree import run_create_tree
 
+app_name = "Tree View"
 options = {
     'view': {
         'title':"Run Spider To Generate Links",
@@ -17,4 +18,4 @@ options = {
 
 }
 
-simple_menu.main_menu(options)
+simple_menu.main_menu(options, app_name)
