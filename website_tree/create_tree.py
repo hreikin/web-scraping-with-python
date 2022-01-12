@@ -1,7 +1,8 @@
 from anytree import Node, RenderTree
 
 source_txt = "output/url-list.txt"
-output_txt = "output/tree-view.txt"
+output_txt = "output/tree-view-output.txt"
+output_file_full_path = f"/python-web-scraping/website_tree/{output_txt}"
 domain = "https://princetonscientific.com/"
 
 
@@ -67,3 +68,6 @@ def run_create_tree():
         for pre, fill, node in RenderTree(anytree):
             stream.write(f"{pre}{node.name}" + "\n")
             print(f"{pre}{node.name}")
+
+        print(f"\nThe output file is now available at '{output_file_full_path}'.")
+        input("Press any key to return to the menu: ")
