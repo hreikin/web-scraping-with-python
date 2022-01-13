@@ -9,7 +9,8 @@ class GetFilesSpider(CrawlSpider):
     start_urls = ['https://doc.python.org/']
 
     rules = (
-        Rule(LinkExtractor(allow=r'Items/'), callback='parse_item', follow=True),
+        Rule(LinkExtractor(allow=r'2/archives/'), callback='parse_item', follow=True),
+        Rule(LinkExtractor(allow=r'3/archives/'), callback='parse_item', follow=True),
     )
 
     def parse_item(self, response):
