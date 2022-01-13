@@ -1,21 +1,19 @@
 import scrapy
-from scrapy.linkextractors import LinkExtractor
-from scrapy.spiders import CrawlSpider, Rule
 
+from file_download.items import DownloadFilesItem
 
-class GetFilesSpider(CrawlSpider):
+class GetFilesSpider(scrapy.Spider):
     name = 'get_files'
-    allowed_domains = ['doc.python.org']
-    start_urls = ['https://doc.python.org/']
+    allowed_domains = ['docs.python.org']
+    start_urls = ['https://docs.python.org/2/archives/']
+    base_url = 'https://docs.python.org/2/archives/'
 
-    rules = (
-        Rule(LinkExtractor(allow=r'2/archives/'), callback='parse_item', follow=True),
-        Rule(LinkExtractor(allow=r'3/archives/'), callback='parse_item', follow=True),
-    )
-
-    def parse_item(self, response):
-        item = {}
-        #item['domain_id'] = response.xpath('//input[@id="sid"]/@value').get()
-        #item['name'] = response.xpath('//div[@id="name"]').get()
-        #item['description'] = response.xpath('//div[@id="description"]').get()
-        return item
+    def parse(self, response):
+        for link in response.xpath('/html/body/pre/a'):
+            all_url = self.base_url + link.xpath('.//@href').get()
+            allowed = 'html.zip'
+            if allowed in all_url:
+                url = response.urljoin(all_url)
+                item = DownloadFilesItem()
+                item['file_urls'] = [url]
+                yield item
