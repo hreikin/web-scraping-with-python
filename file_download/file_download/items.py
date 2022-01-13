@@ -10,3 +10,7 @@ class FileDownloadItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     pass
+
+class DownloadFilesItem(scrapy.Item):
+    file_urls = scrapy.Field()
+    files = scrapy.Field
